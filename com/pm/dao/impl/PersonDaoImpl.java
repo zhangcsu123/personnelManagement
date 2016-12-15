@@ -23,13 +23,14 @@ public class PersonDaoImpl implements IPersonDao{
         boolean flag = false;
         PreparedStatement pstmt = null;
         String sql = "INSERT INTO person(pid,name,age,birthday,address)"
-                + "VALUES(myseq.nextval,?,?,?,?)";
+                + "VALUES(?,?,?,?,?)";
         try {
             pstmt = this.conn.prepareStatement(sql);
-            pstmt.setString(1,person.getName());
-            pstmt.setInt(2,person.getAge());
-            pstmt.setDate(3,new java.sql.Date(person.getBirthday().getTime()));
-            pstmt.setString(4,person.getAddress());
+            pstmt.setString(1,String.valueOf(person.getPid()));
+            pstmt.setString(2,person.getName());
+            pstmt.setInt(3,person.getAge());
+            pstmt.setDate(4,new java.sql.Date(person.getBirthday().getTime()));
+            pstmt.setString(5,person.getAddress());
             int len = pstmt.executeUpdate();
             if(len > 0) {
                 flag = true;
