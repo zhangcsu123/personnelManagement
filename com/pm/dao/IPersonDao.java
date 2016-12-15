@@ -26,7 +26,7 @@ public interface IPersonDao {
     /**
      * 查询操作
      */
-    public boolean findById(int pid) throws Exception;
+    public Person findById(int pid) throws Exception;
 
     /**
      * 查询所有

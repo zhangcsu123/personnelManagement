@@ -1,7 +1,8 @@
-package pm.dao.impl;
+package pm.dao.proxy;
 
 import jdbc.DatabaseConnection;
 import pm.dao.IPersonDao;
+import pm.dao.impl.PersonDaoImpl;
 import pm.pojo.Person;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class PersonDaoProxy implements IPersonDao {
 
     private DatabaseConnection dbc = null;
-    private IPersonDao dao = null;
+    private PersonDaoImpl dao = null;
 
     public PersonDaoProxy() {
         this.dbc = new DatabaseConnection();
@@ -59,28 +60,28 @@ public class PersonDaoProxy implements IPersonDao {
     }
 
     @Override
-    public boolean findById(int pid) throws Exception {
-        boolean flag = false;
+    public Person findById(int pid) throws Exception {
+        Person per = null;
         try {
-            flag = this.dao.findById(pid);
+            per = this.dao.findById(pid);
         } catch (Exception e) {
             throw e;
         } finally {
             this.dbc.closed();
         }
-        return flag;
+        return per;
     }
 
     @Override
     public List<Person> findAll(String keyWord) throws Exception {
-        List<Person> per = null;
+        List<Person> all = null;
         try {
-            per = this.dao.findAll(keyWord);
+            all = this.dao.findAll(keyWord);
         } catch(Exception e) {
             throw e;
         } finally {
             this.dbc.closed();
         }
-        return per;
+        return all;
     }
 }
